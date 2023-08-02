@@ -2,12 +2,15 @@
 
 namespace App\Repository;
 
+use PDO;
 use App\Models\Actor;
 use App\Service\PDOService;
 
 class ActorRepository
 {
     private PDOService $pdoService;
+
+    private string $queryAll = 'SELECT * FROM actor ';
 
     public function __construct()
     {
@@ -17,8 +20,15 @@ class ActorRepository
     //array d'Actor si en objet
     public function findAll():array
     {
-        $query = $this->pdoService->getPdo()->query('SELECT * FROM actor');
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+        $actors = $this->pdoService->getPDO()->query($this->queryAll)->fetchAll(PDO::FETCH_CLASS, Actor::class);
+
+        foreach ($actors as $actor) {
+            // Utilisez les valeurs de "first_name" et "last_name" pour initialiser les propriétés "firstName" et "lastName"
+            $actor->setFirstName($actor->first_name);
+            $actor->setLastName($actor->last_name);
+        }
+
+        return $actors;
     }
 
     //Actor si en objet

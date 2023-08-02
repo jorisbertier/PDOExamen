@@ -2,13 +2,15 @@
 
 namespace App\Repository;
 
+use PDO;
 use App\Models\Movie;
 use App\Service\PDOService;
-use PDO;
 
 class MovieRepository
 {
     private PDOService $pdoService;
+
+    private string $queryAll = 'SELECT * FROM movie ';
 
     public function __construct()
     {
@@ -16,10 +18,9 @@ class MovieRepository
     }
 
     //array de Movie si en objet
-    public function findAll()
+    public function findAll():array
     {
-        $query = $this->pdoService->getPdo()->query('SELECT * FROM movie');
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->pdoService->getPDO()->query($this->queryAll)->fetchAll(PDO::FETCH_CLASS, Movie::class);
     }
 
     //array de Movie si en objet

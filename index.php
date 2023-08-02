@@ -6,16 +6,10 @@ use App\Repository\MovieRepository;
 use App\Repository\ActorRepository;
 
 $movies = new MovieRepository;
-$allMovies = $movies->findAll();
+$findMovie = $movies->findAll();
 
 $actors = new ActorRepository;
 $allActors = $actors->findAll();
-// var_dump($allMovies);
-
-// foreach($allMovies as $movie) {
-//         echo $movie['title'];
-//         echo '<br>';
-// }
 
 ?>
 
@@ -35,8 +29,10 @@ $allActors = $actors->findAll();
 <div class="text-center w-100 d-flex align-items-center justify-content-center">
     <div class="mx-auto w-75">
         <h1 class="mb-5">Liste des films</h1>
-        <?php foreach ($allMovies as $movie) : ?>
-            <div class="nav-item"> <?= $movie['title'] ?> </div>
+        <?php foreach ($findMovie as $movie) : ?>
+            
+                <div class="nav-item"><?= $movie->getTitle() ?></div>
+            
         <?php endforeach ?> 
     </div>
 </div>
@@ -44,7 +40,7 @@ $allActors = $actors->findAll();
     <div class="mx-auto w-75">
         <h1 class="mb-5">Liste des Acteurs</h1>
         <?php foreach ($allActors as $actor) : ?>
-            <div class="nav-item"> <?= $actor['first_name'] ?> <?= $actor['last_name'] ?> </div>
+            <div class="nav-item"> <?= $actor->getFirstName() ?> <?= $actor->getLastName() ?> </div>
         <?php endforeach ?> 
     </div>
 </div>

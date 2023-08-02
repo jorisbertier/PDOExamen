@@ -10,6 +10,13 @@ class Actor
 
     private string $lastName;
 
+    public function __construct()
+    {
+        $this->firstName = null;
+        $this->lastName = '';
+    }
+
+
     public function getId(): int
     {
         return $this->id;
