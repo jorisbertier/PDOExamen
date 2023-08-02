@@ -23,7 +23,7 @@ class ActorRepository
         $actors = $this->pdoService->getPDO()->query($this->queryAll)->fetchAll(PDO::FETCH_CLASS, Actor::class);
 
         foreach ($actors as $actor) {
-            // Utilisez les valeurs de "first_name" et "last_name" pour initialiser les propriétés "firstName" et "lastName"
+            
             $actor->setFirstName($actor->first_name);
             $actor->setLastName($actor->last_name);
         }
